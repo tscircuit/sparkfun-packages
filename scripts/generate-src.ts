@@ -28,8 +28,11 @@ async function main() {
     const lib = parseEagleXML(
       fs.readFileSync(path.resolve(sfPath, file)).toString()
     )
+    // for (const package of lib.library.packages) {
+    // }
+
     fs.writeFileSync(
-      path.resolve(srcPath, `${lib.name}.json`),
+      path.resolve(srcPath, `${file.split(".")[0]}.json`),
       JSON.stringify(lib, null, 2)
     )
   }
