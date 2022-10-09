@@ -25,17 +25,17 @@ async function main() {
   await mkdirp(srcPath)
 
   for (const file of eagleLibFiles) {
-    console.log(file)
     const lib = parseEagleXML(
       fs.readFileSync(path.resolve(sfPath, file)).toString()
     )
-    // for (const package of lib.library.packages) {
-    // }
 
     fs.writeFileSync(
-      path.resolve(srcPath, `${file.split(".")[0]}.json`),
+      path.resolve(srcPath, `parsed-eagle/${file.split(".")[0]}.json`),
       JSON.stringify(lib, null, 2)
     )
+
+    for (const pkg of lib.library.packages) {
+    }
   }
 }
 

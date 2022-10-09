@@ -7,10 +7,12 @@
     "generate": "esr ./scripts/generate-src.ts"
   },
   "devDependencies": {
-    "@tscircuit/eagle-xml-converter": "file:.yalc/@tscircuit/eagle-xml-converter",
+    "@tscircuit/eagle-xml-converter": "^1.0.2",
     "@types/git-clone": "^0.2.0",
+    "@types/mkdirp": "^1.0.2",
     "@types/node": "^18.8.3",
     "@types/rmfr": "^2.0.1",
+    "ava": "^4.3.3",
     "esbuild": "^0.15.10",
     "esbuild-register": "^3.3.3",
     "esbuild-runner": "^2.2.1",
