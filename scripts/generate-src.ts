@@ -25,6 +25,7 @@ async function main() {
   await mkdirp(srcPath)
 
   for (const file of eagleLibFiles) {
+    console.log(file)
     const lib = parseEagleXML(
       fs.readFileSync(path.resolve(sfPath, file)).toString()
     )
@@ -36,8 +37,6 @@ async function main() {
       JSON.stringify(lib, null, 2)
     )
   }
-
-  console.log(files)
 }
 
 main()
