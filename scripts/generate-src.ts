@@ -23,6 +23,7 @@ async function main() {
   // Clear source directory
   await rmfr(srcPath)
   await mkdirp(srcPath)
+  await mkdirp(path.resolve(srcPath, "parsed-eagle"))
 
   for (const file of eagleLibFiles) {
     const lib = parseEagleXML(
