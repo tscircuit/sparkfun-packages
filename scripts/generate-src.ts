@@ -4,6 +4,7 @@ import path from "path"
 import * as fs from "fs"
 import rmfr from "rmfr"
 import mkdirp from "mkdirp"
+import { packageToFile } from "../lib/package-to-file"
 
 async function main() {
   const { pkgUp } = await import("pkg-up")
@@ -35,7 +36,24 @@ async function main() {
       JSON.stringify(lib, null, 2)
     )
 
+    const tsDir = path.resolve(
+      srcPath,
+      file.split("/").slice(-1)[0].split("-")[1].split(".")[0].toLowerCase()
+    )
+    await mkdirp(tsDir)
+
     for (const pkg of lib.library.packages) {
+      try {
+        const { fileContent, componentName } = await packageToFile(pkg, lib)
+        fs.writeFileSync(
+          path.resolve(tsDir, `${componentName}.tsx`),
+          fileContent
+        )
+      } catch (e) {
+        console.warn(
+          `Failed to convert package in ${file.split("/").slice(-1)[0]}`
+        )
+      }
     }
   }
 }
