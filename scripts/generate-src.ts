@@ -149,7 +149,7 @@ type Package = {
   }>;
 }
 
-declare module "@tscircuit/sparkfun-components" {
+declare module "@tscircuit/sparkfun-footprints" {
   const moduleExports: Record<SparkfunComponentId, Package>;
   export = moduleExports;
 }
