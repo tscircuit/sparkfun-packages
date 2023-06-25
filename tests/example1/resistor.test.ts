@@ -1,5 +1,5 @@
 import test from "ava"
-import { packageToFile } from "../../lib/package-to-file"
+import { packageToFile } from "../../lib/package-to-component-file"
 
 const resistorPackage = {
   description:

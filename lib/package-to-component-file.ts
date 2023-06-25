@@ -46,10 +46,12 @@ import React from "react"
 
 const ${componentName} = () => (
   <component description={"${JSON.stringify(description)}"}>
-${smd.map(
+${smd
+  .map(
     (smd) =>
       `    <pad x="${smd.x}${unit}" y="${smd.y}${unit}" width="${smd.dx}${unit}" height="${smd.dy}${unit}" />`
-  ).join('\n')}
+  )
+  .join("\n")}
     <schematic_symbol>
     </schematic_symbol>
   </component>
