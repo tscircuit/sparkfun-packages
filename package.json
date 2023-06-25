@@ -1,8 +1,12 @@
 {
   "name": "sparkfun-packages",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "src/index.js",
   "license": "MIT",
+  "files": [
+    "json",
+    "src"
+  ],
   "scripts": {
     "generate": "esr ./scripts/generate-src.ts"
   },
@@ -11,6 +15,7 @@
     "@types/git-clone": "^0.2.0",
     "@types/mkdirp": "^1.0.2",
     "@types/node": "^18.8.3",
+    "@types/prettier": "^2.7.3",
     "@types/rmfr": "^2.0.1",
     "ava": "^4.3.3",
     "esbuild": "^0.15.10",
@@ -19,7 +24,7 @@
     "git-clone": "^0.2.0",
     "mkdirp": "^1.0.4",
     "pkg-up": "^4.0.0",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.8",
     "rmfr": "^2.0.0",
     "ts-morph": "^16.0.0",
     "tsup": "^6.2.3",

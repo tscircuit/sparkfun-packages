@@ -6,6 +6,7 @@ import rmfr from "rmfr"
 import mkdirp from "mkdirp"
 import { packageToFile } from "../lib/package-to-component-file"
 import { getComponentName } from "../lib/get-component-name"
+import prettier from "prettier"
 
 async function main() {
   const { pkgUp } = await import("pkg-up")
@@ -98,6 +99,63 @@ async function main() {
     (k) => `\n  "${k}": require("${export_modules[k]}")`
   )}}`
   fs.writeFileSync(path.resolve(srcJsDir, "index.js"), indexJsContent)
+
+  const typefile = `
+type SparkfunComponentId = ${Object.keys(export_modules)
+    .map((a) => `"${a}"`)
+    .join(" | ")}
+
+type Package = {
+  name: string;
+  description?: string;
+  circle?: Array<{
+      x: number;
+      y: number;
+      radius: number;
+      width: number;
+      layer: number;
+  }>;
+  rectangle?: Array<{
+      x1: number;
+      y1: number;
+      x2: number;
+      y2: number;
+      layer: number;
+  }>;
+  text?: Array<{
+      "#text": string;
+      x: number;
+      y: number;
+      size: number;
+      layer: number;
+      align: "top-left";
+  }>;
+  wire?: Array<{
+      x1: number;
+      y1: number;
+      x2: number;
+      y2: number;
+      width: number;
+      layer: number;
+  }>;
+  smd?: Array<{
+      name: string;
+      x: number;
+      y: number;
+      dx: number;
+      dy: number;
+      layer: number;
+      roundness: number;
+  }>;
+}
+
+declare module "@tscircuit/sparkfun-components" {
+  const moduleExports: Record<SparkfunComponentId, Package>;
+  export = moduleExports;
+}
+`.trim()
+  const prettyTypefile = prettier.format(typefile, { parser: "typescript" })
+  fs.writeFileSync(path.resolve(srcJsDir, "index.d.ts"), prettyTypefile)
 }
 
 main()
