@@ -1,16 +1,21 @@
 {
   "name": "@tscircuit/sparkfun-packages",
-  "version": "1.0.3",
-  "main": "src/index.js",
+  "version": "1.0.4",
+  "main": "dist/index.js",
   "license": "MIT",
   "files": [
     "json",
-    "src"
+    "dist"
   ],
   "scripts": {
+    "build": "tsup ./src/index.js --minify --sourcemap",
     "generate": "esr ./scripts/generate-src.ts"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^10.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.4",
+    "@semantic-release/release-notes-generator": "^11.0.4",
     "@tscircuit/eagle-xml-converter": "^1.0.4",
     "@types/git-clone": "^0.2.0",
     "@types/mkdirp": "^1.0.2",
@@ -27,11 +32,11 @@
     "prettier": "^2.8.8",
     "rmfr": "^2.0.0",
     "ts-morph": "^16.0.0",
-    "tsup": "^6.2.3",
+    "tsup": "^6.7.0",
     "tsx": "^3.12.7",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "camelcase": "^7.0.0"
   },
   "dependencies": {
-    "camelcase": "^7.0.0"
   }
 }
