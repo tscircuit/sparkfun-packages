@@ -98,9 +98,11 @@ async function main() {
         )
         const jsPath = path.resolve(srcJsLibDir, `${componentName}.js`)
         // successfulJsPaths.push(jsPath)
-        export_modules[componentName] = `./${eagleLibDirName}/${componentName}`
         export_modules[
-          `${eagleLibDirName}/${componentName}`
+          `sparkfun:${componentName}`
+        ] = `./${eagleLibDirName}/${componentName}`
+        export_modules[
+          `sparkfun:${eagleLibDirName}:${componentName}`
         ] = `./${eagleLibDirName}/${componentName}`
         fs.writeFileSync(jsPath, `module.exports = ${jsonFileContent}`)
       } catch (e: any) {
