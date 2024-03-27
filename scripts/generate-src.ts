@@ -120,11 +120,11 @@ async function main() {
   fs.writeFileSync(path.resolve(srcJsDir, "index.js"), indexJsContent)
 
   const typefile = `
-type SparkfunComponentId = ${Object.keys(export_modules)
+export type SparkfunComponentId = ${Object.keys(export_modules)
     .map((a) => `"${a}"`)
     .join(" | ")}
 
-type Package = {
+export type Package = {
   name: string;
   description?: string;
   circle?: Array<{
@@ -168,10 +168,9 @@ type Package = {
   }>;
 }
 
-declare module "@tscircuit/sparkfun-packages" {
-  const moduleExports: Record<SparkfunComponentId, Package>;
-  export = moduleExports;
-}
+declare const _default: Record<SparkfunComponentId, Package>;
+
+export default _default;
 `.trim()
   const prettyTypefile = prettier.format(typefile, { parser: "typescript" })
   fs.writeFileSync(path.resolve(srcJsDir, "index.d.ts"), prettyTypefile)
