@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/sparkfun-packages",
-  "version": "1.0.4",
+  "version": "1.2.0",
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
