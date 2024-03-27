@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup ./src/index.js --minify --sourcemap --dts",
+    "build": "tsup ./src/index.ts --minify --sourcemap --dts",
     "generate": "esr ./scripts/generate-src.ts --whitelist ./whitelist.txt",
     "generate:all": "esr ./scripts/generate-src.ts"
   },

@@ -114,12 +114,8 @@ async function main() {
   }
 
   // Generate index.js
-  const indexJsContent = `module.exports = {${Object.keys(export_modules).map(
-    (k) => `\n  "${k}": require("${export_modules[k]}")`
-  )}}`
-  fs.writeFileSync(path.resolve(srcJsDir, "index.js"), indexJsContent)
-
-  const typefile = `
+  const indexTsContent = `
+  
 export type SparkfunComponentId = ${Object.keys(export_modules)
     .map((a) => `"${a}"`)
     .join(" | ")}
@@ -166,14 +162,17 @@ export type Package = {
       layer: number;
       roundness: number;
   }>;
-}
+}  
+  
+  
+  export default {${Object.keys(export_modules).map(
+    (k) => `\n  "${k}": require("${export_modules[k]}")`
+  )}}`.trim()
 
-declare const _default: Record<SparkfunComponentId, Package>;
-
-export default _default;
-`.trim()
-  const prettyTypefile = prettier.format(typefile, { parser: "typescript" })
-  fs.writeFileSync(path.resolve(srcJsDir, "index.d.ts"), prettyTypefile)
+  const prettyTypefile = prettier.format(indexTsContent, {
+    parser: "typescript",
+  })
+  fs.writeFileSync(path.resolve(srcJsDir, "index.ts"), prettyTypefile)
 }
 
 main()
