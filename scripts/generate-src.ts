@@ -7,8 +7,10 @@ import mkdirp from "mkdirp"
 import { packageToFile } from "../lib/package-to-component-file"
 import { getComponentName } from "../lib/get-component-name"
 import prettier from "prettier"
+import minimist from "minimist"
 
 async function main() {
+  const args = minimist(process.argv.slice(2))
   const { pkgUp } = await import("pkg-up")
   const pkgPath = await pkgUp()
   if (!pkgPath) throw new Error("Could not find package.json")
@@ -52,11 +54,34 @@ async function main() {
     const srcJsLibDir = path.resolve(srcJsDir, eagleLibDirName)
     const jsonDir = path.resolve(jsonPath, eagleLibDirName)
 
+    if (eagleLibDirName === "retired" || eagleLibDirName === "aesthetics")
+      continue
+
+    console.log(`Processing eagle lib: ${eagleLibDirName}`)
+
     await mkdirp(srcJsLibDir)
     await mkdirp(jsonDir)
 
+    let whitelist: null | string[] = null
+    if (args.whitelist) {
+      whitelist = fs
+        .readFileSync(args.whitelist)
+        .toString()
+        .split("\n")
+        .filter((l) => !l.startsWith("#"))
+    }
+
     for (const pkg of lib.library.packages) {
       const componentName = await getComponentName(pkg)
+      if (
+        whitelist &&
+        !whitelist.includes(componentName) &&
+        !whitelist
+          ?.filter((w) => w.endsWith("*"))
+          .some((w) => componentName.startsWith(w.slice(0, -1)))
+      ) {
+        continue
+      }
       try {
         // Generate TSCircuit Component File
         // const { fileContent, componentName } = await packageToFile(pkg, lib)
@@ -87,12 +112,6 @@ async function main() {
       }
     }
   }
-
-  // Add leading prefixes to some components that don't have them
-  export_modules["0402"] = export_modules["402"]
-  export_modules["0603"] = export_modules["603"]
-  export_modules["0805"] = export_modules["805"]
-  export_modules["0806"] = export_modules["806"]
 
   // Generate index.js
   const indexJsContent = `module.exports = {${Object.keys(export_modules).map(

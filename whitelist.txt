@@ -1,0 +1,6 @@
+# by default, sparkfun has 30MB of layouts, this file whitelists all the ones
+# we want to use. To get the full list, run "npm run generate:all"
+0402*
+0603*
+0805*
+1210*

@@ -4,12 +4,12 @@
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
-    "json",
     "dist"
   ],
   "scripts": {
     "build": "tsup ./src/index.js --minify --sourcemap",
-    "generate": "esr ./scripts/generate-src.ts"
+    "generate": "esr ./scripts/generate-src.ts --whitelist ./whitelist.txt",
+    "generate:all": "esr ./scripts/generate-src.ts"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^10.0.1",
@@ -27,6 +27,7 @@
     "esbuild-register": "^3.3.3",
     "esbuild-runner": "^2.2.1",
     "git-clone": "^0.2.0",
+    "minimist": "^1.2.8",
     "mkdirp": "^1.0.4",
     "pkg-up": "^4.0.0",
     "prettier": "^2.8.8",
@@ -34,9 +35,9 @@
     "ts-morph": "^16.0.0",
     "tsup": "^6.7.0",
     "tsx": "^3.12.7",
-    "typescript": "^4.8.4",
-    "camelcase": "^7.0.0"
+    "typescript": "^4.8.4"
   },
   "dependencies": {
+    "change-case": "^5.4.3"
   }
 }
