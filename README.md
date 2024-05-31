@@ -5,7 +5,7 @@
 > a [footprinter string](https://github.com/tscircuit/footprinter), you can convert most footprints
 > to a compatible footprinter string using [AI text-to-footprint](https://text-to-footprint.tscircuit.com)
 
-> [!INFO]
+> [!NOTE]
 > You may want to consider using [@tscircuit/footprints](https://github.com/tscircuit/footprints)
 > instead of the "sparkfun strings"
 
